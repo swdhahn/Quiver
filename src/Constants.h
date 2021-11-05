@@ -4,6 +4,7 @@
 
 #ifndef QUIVER_CONSTANTS_H
 #define QUIVER_CONSTANTS_H
+#include <string>
 
 
 // Language Specifics:
@@ -22,6 +23,12 @@ enum Language {
     VARIABLE_DESTRUCTION, // variable-id
 
 };
+
+const std::string LanguageTypes[] = {"int", "int32", "int64", "float", "float32", "float64", "boolean", "char"};
+const std::string LanguageModifiers[] = {"const", "static"};
+
+#define LANGUAGE_TYPE_COUNT 8
+#define LANGUAGE_MODIFIER_COUNT 2
 
 /*
  * Simple program layout
