@@ -1,9 +1,12 @@
 #include <iostream>
+#include "Quiver.h"
 
 
 int main() {
 
-    std::cout << "Hewoo!" << std::endl;
+    Quiver quiv;
+
+    quiv.compileQuivFile("quiv/Main.quiv");
 
 	return 1;
 }

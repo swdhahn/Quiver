@@ -5,8 +5,14 @@
 #ifndef QUIVER_QUIVER_H
 #define QUIVER_QUIVER_H
 
+#include "Compiler.h"
 
 class Quiver {
+public:
+    void compileQuivFile(const char* file);
+    void executeQuivFile(const char* file);
+
+private:
 
 };
 

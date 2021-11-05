@@ -3,3 +3,14 @@
 //
 
 #include "Quiver.h"
+
+void Quiver::compileQuivFile(const char* file) {
+
+    Compiler c;
+    c.compile(file);
+
+}
+
+void Quiver::executeQuivFile(const char* file) {
+
+}

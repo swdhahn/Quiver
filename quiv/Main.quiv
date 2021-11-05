@@ -1,0 +1,15 @@
+
+
+class Ye {
+
+    int main() {
+
+        // int, int32, int64, float, float32, float64, boolean, char
+
+        int32 heheYas = 16;
+        println();
+
+
+    }
+
+}
