@@ -8,6 +8,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <vector>
 #include "Constants.h"
 
 class Compiler {
@@ -16,13 +17,10 @@ public:
 
 private:
     // gets the next word, skips over whitespace
-    void nextWord(FILE* file, std::string& currentWord);
-
-    // checks if character is whitespace
-    bool isWhitespace(const char& c);
+    void nextSymbol(FILE* file, std::string& currentWord, char& nextSymbol);
 
     // writes words and meanings to compiled file
-    void handleWord(FILE* in_file, std::ofstream& out_file, std::string& current);
+    void handleSymbol(FILE* in_file, std::ofstream& out_file, std::string& current, char& nextSymbol);
 
 };
 
