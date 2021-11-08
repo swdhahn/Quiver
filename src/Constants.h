@@ -5,16 +5,20 @@
 #ifndef QUIVER_CONSTANTS_H
 #define QUIVER_CONSTANTS_H
 #include <string>
+#include <iostream>
+#include "Exceptions.h"
 
 
 // Language Specifics:
 
-const std::string LanguageTypes[] = {"int", "int32", "int64", "float", "float32", "float64", "boolean", "char"};
-const std::string LanguageModifiers[] = {"const", "static"};
+const std::string LanguageWords[] = {"class", "new", "delete", "throw", "#"};
+const std::string LanguageTypes[] = {"int", "int32", "int64", "uint", "uint32", "uint64", "float", "float32", "float64", "boolean", "char"};
+const std::string LanguageModifiers[] = {"const", "static", "public", "private", "protected"};
 const std::string LanguageSymbols = ":;'\"{}[]<>+-*/%=(),.";
 
-#define LANGUAGE_TYPE_COUNT 8
-#define LANGUAGE_MODIFIER_COUNT 2
+#define LANGUAGE_TYPE_COUNT 11
+#define LANGUAGE_MODIFIER_COUNT 5
+#define LANGUAGE_WORD_COUNT 5
 
 /*
  * Simple program layout
@@ -48,61 +52,21 @@ enum Language {
 
 };
 
-bool isLanguageType(const std::string& type) {
-    for(int i = 0; i < LANGUAGE_TYPE_COUNT; i++) {
-        if(type == LanguageTypes[i]) {
-            return true;
-        }
-    }
-    return false;
-}
+bool isLanguageType(const std::string& type);
 
-bool isLanguageModifier(const std::string& modifier) {
-    for(int i = 0; i < LANGUAGE_MODIFIER_COUNT; i++) {
-        if(modifier == LanguageModifiers[i]) {
-            return true;
-        }
-    }
-    return false;
-}
+bool isLanguageModifier(const std::string& modifier);
 
-bool isWhitespace(const char& c) {
-    return (c == ' ' || c == '\n' || c == '\r' || c == '\t');
-}
+bool isLanguageWord(const std::string& word);
 
-bool hasSymbol(const std::string& name) {
-    for(int i = 0; i < name.length(); i++) {
-        if(LanguageSymbols.find(name[i]) != std::string::npos) {
-            return true;
-        }
-    }
-    return false;
-}
+bool isWhitespace(const char& c);
 
-bool isSymbol(const char& c) {
-    if(LanguageSymbols.find(c) != std::string::npos) {
-        return true;
-    }
+bool hasSymbol(const std::string& name);
 
-    return false;
-}
+bool isSymbol(const char& c);
 
-bool containsWhitespace(const std::string& name) {
-    for(int i = 0; i < name.length(); i++) {
-        if(isWhitespace(name[i])) {
-            return true;
-        }
-    }
-    return false;
-}
+bool containsWhitespace(const std::string& name);
 
-bool isValidName(const std::string& name) {
-    if(isLanguageModifier(name) || isLanguageType(name) || hasSymbol(name) || containsWhitespace(name)) {
-        std::cerr << "Invalid name: " << name << std::endl;
-        return false;
-    }
-    return true;
-}
+bool isValidName(const std::string& name);
 
 
 

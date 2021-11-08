@@ -6,7 +6,7 @@ class Ye {
 
         // int, int32, int64, float, float32, float64, boolean, char
 
-        int32 heheYas = 16;
+        int32 YASSS = 16;
         int32 heheYas2= 16;
         int32 heheYas3 =16;
         int32 heheYas4=16;

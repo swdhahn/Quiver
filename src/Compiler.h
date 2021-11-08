@@ -17,10 +17,10 @@ public:
 
 private:
     // gets the next word, skips over whitespace
-    void nextSymbol(FILE* file, std::string& currentWord, char& nextSymbol);
+    void nextSymbol(FILE* file, std::string& currentWord, char& nextSymbol, int& lineNumber);
 
     // writes words and meanings to compiled file
-    void handleSymbol(FILE* in_file, std::ofstream& out_file, std::string& current, char& nextSymbol);
+    void handleSymbol(FILE* in_file, std::ofstream& out_file, std::string& current, char& nextSymbol, const std::string& fileName, int& lineNumber);
 
 };
 
