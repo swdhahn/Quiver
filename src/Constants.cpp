@@ -4,9 +4,11 @@
 
 #include "Constants.h"
 
+Variable* LanguageVariables[] = {new Boolean(), new Char(), new Float32(), new Float64(), new Integer32(), new Integer64(), new UnsignedInteger32(), new UnsignedInteger64()};
+
 bool isLanguageType(const std::string& type) {
-    for(int i = 0; i < LANGUAGE_TYPE_COUNT; i++) {
-        if(type == LanguageTypes[i]) {
+    for(int i = 0; i < LANGUAGE_VARIABLE_COUNT; i++) {
+        if(LanguageVariables[i]->isType(type)) {
             return true;
         }
     }
@@ -66,4 +68,14 @@ bool isValidName(const std::string& name) {
         return false;
     }
     return true;
+}
+
+const Variable* getVariableFromType(const std::string& type) {
+    for(int i = 0; i < LANGUAGE_VARIABLE_COUNT; i++) {
+        if(LanguageVariables[i]->isType(type)) {
+            return LanguageVariables[i];
+        }
+    }
+    std::cerr << "Something went terribly wrong, variable with type " << type << " does not exist." << std::endl;
+    throw std::exception();
 }

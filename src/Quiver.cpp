@@ -4,9 +4,20 @@
 
 #include "Quiver.h"
 
+Quiver::Quiver(const std::string& path) : m_path(path) {
+
+
+}
+
+Quiver::~Quiver() {
+    for(int i = 0; i < LANGUAGE_VARIABLE_COUNT; i++) {
+        delete LanguageVariables[i];
+    }
+}
+
 void Quiver::compileQuivFile(const char* file) {
 
-    Compiler c;
+    Compiler c(m_path);
     c.compile(file);
 
 }

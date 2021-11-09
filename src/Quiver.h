@@ -9,11 +9,14 @@
 
 class Quiver {
 public:
+    Quiver(const std::string& path);
+    ~Quiver();
+
     void compileQuivFile(const char* file);
     void executeQuivFile(const char* file);
 
 private:
-
+    const std::string& m_path;
 };
 
 

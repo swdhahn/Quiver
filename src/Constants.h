@@ -7,18 +7,31 @@
 #include <string>
 #include <iostream>
 #include "Exceptions.h"
+#include "language/Variable.h"
+#include "language/Boolean.h"
+#include "language/Char.h"
+#include "language/Float32.h"
+#include "language/Float64.h"
+#include "language/Integer32.h"
+#include "language/Integer64.h"
+#include "language/UnsignedInteger32.h"
+#include "language/UnsignedInteger64.h"
+
+
 
 
 // Language Specifics:
 
+#define LANGUAGE_VARIABLE_COUNT 8
+#define LANGUAGE_MODIFIER_COUNT 5
+#define LANGUAGE_WORD_COUNT 5
+
+extern Variable* LanguageVariables[LANGUAGE_VARIABLE_COUNT];
 const std::string LanguageWords[] = {"class", "new", "delete", "throw", "#"};
-const std::string LanguageTypes[] = {"int", "int32", "int64", "uint", "uint32", "uint64", "float", "float32", "float64", "boolean", "char"};
 const std::string LanguageModifiers[] = {"const", "static", "public", "private", "protected"};
 const std::string LanguageSymbols = ":;'\"{}[]<>+-*/%=(),.";
 
-#define LANGUAGE_TYPE_COUNT 11
-#define LANGUAGE_MODIFIER_COUNT 5
-#define LANGUAGE_WORD_COUNT 5
+
 
 /*
  * Simple program layout
@@ -34,8 +47,6 @@ const std::string LanguageSymbols = ":;'\"{}[]<>+-*/%=(),.";
 // ids are names for now
 enum Language {
     SEPARATOR = -127, // - Separates values
-    BEGIN = 26, // - begins class
-    END, // - ends class
 
     CLASS_BEGIN, // CLASS_BEGIN class-id inherited-class-id variable-def ... func-def ... CLASS_END
     CLASS_END,
@@ -67,6 +78,8 @@ bool isSymbol(const char& c);
 bool containsWhitespace(const std::string& name);
 
 bool isValidName(const std::string& name);
+
+const Variable* getVariableFromType(const std::string& type);
 
 
 
