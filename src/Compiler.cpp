@@ -17,7 +17,7 @@ void Compiler::compile(const char* path) {
     }
     std::ofstream out_file (std::string(path) + std::string("_obj"));
 
-    std::string current = "";
+    std::string current;
     char nextSymbol = 0;
     int lineNumber = 1;
     int lineOffset = 0;
@@ -40,9 +40,12 @@ void Compiler::compile(const char* path) {
 }
 
 void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string& current, char& nSymbol, const std::string& fileName, int& lineNumber, int& lineOffset) {
-    //std::cout << current << std::endl;
+    std::cout << current << std::endl;
+    bool isRecognized = false;
+
     std::string mainWord = current;
     if(mainWord == "class") {
+        isRecognized = true;
         std::cout << current << std::endl;
         nextSymbol(in_file, current, nSymbol, lineNumber, lineOffset);
         std::string name = current;
@@ -75,10 +78,30 @@ void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string&
             throw BuildException(fileName, lineNumber, lineOffset);
         }
     }
-    // Methods and variables
 
-        // either function or variable
+    if(isValidName(mainWord)) {
+        nextSymbol(in_file, current, nSymbol, lineNumber, lineOffset);
+        std::string name = mainWord;
+        std::string next = current;
+        if(next == "(") {
+            isRecognized = true;
+            std::cout << "HEYYY, FUNCTION CALL: " << name << std::endl;
+        }
+    }
+
+    // Methods and variables
+    std::vector<std::string> modifiers;
+
+    while(isLanguageModifier(mainWord)) {
+        //if (isLanguageModifier(mainWord)) {
+            modifiers.push_back(mainWord);
+            nextSymbol(in_file, current, nSymbol, lineNumber, lineOffset);
+            mainWord = current;
+        //}
+    }
+    // either function or variable
         if(isLanguageType(mainWord)) {
+            isRecognized = true;
             std::string type = mainWord;
             nextSymbol(in_file, current, nSymbol, lineNumber, lineOffset);
             std::string name = current;
@@ -92,6 +115,12 @@ void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string&
 
                 // create method
                 out_file << (char)METHOD_BEGIN << (char)SEPARATOR << name << (char) SEPARATOR << type << (char) SEPARATOR;
+
+                for(int i = 0; i < modifiers.size(); i++) {
+                    if(modifiers.at(i) == "const") {
+
+                    }
+                }
 
                 out_file << (char)PARAMS_BEGIN << (char)SEPARATOR;
 
@@ -173,7 +202,11 @@ void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string&
             } else {
                 throw InvalidSymbol(next, fileName, lineNumber, lineOffset);
             }
+        }
 
+    if(!isRecognized && !containsWhitespace(mainWord)) {
+
+        std::cout << InvalidSymbol(mainWord, fileName, lineNumber, lineOffset).what() << std::endl;
     }
 }
 

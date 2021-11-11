@@ -7,15 +7,15 @@
 #include <string>
 #include <iostream>
 #include "Exceptions.h"
-#include "language/Variable.h"
-#include "language/Boolean.h"
-#include "language/Char.h"
-#include "language/Float32.h"
-#include "language/Float64.h"
-#include "language/Integer32.h"
-#include "language/Integer64.h"
-#include "language/UnsignedInteger32.h"
-#include "language/UnsignedInteger64.h"
+#include "language/variables/Variable.h"
+#include "language/variables/Boolean.h"
+#include "language/variables/Char.h"
+#include "language/variables/Float32.h"
+#include "language/variables/Float64.h"
+#include "language/variables/Integer32.h"
+#include "language/variables/Integer64.h"
+#include "language/variables/UnsignedInteger32.h"
+#include "language/variables/UnsignedInteger64.h"
 
 
 

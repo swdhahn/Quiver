@@ -16,6 +16,7 @@ int main(int argc, char* argv[]) {
     Quiver quiv(path);
 
     quiv.compileQuivFile("quiv/Main.quiv");
+    quiv.executeQuivFile("quiv/Main.quiv_obj");
 
 	return 0;
 }
