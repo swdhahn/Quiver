@@ -10,6 +10,10 @@ BuildException::BuildException(std::string fileName, int line, int lineOffset) {
     m_error = std::string("Build Exception[" + fileName + ":" + std::to_string(line) + ":" + std::to_string(lineOffset) + "] ").c_str();
 }
 
+BuildException::BuildException(std::string fileName) {
+    m_error = std::string("Build Exception[" + fileName + "] ").c_str();
+}
+
 InvalidSymbol::InvalidSymbol(std::string symbol, std::string fileName, int line, int lineOffset) : BuildException(std::move(fileName), line, lineOffset) {
     m_error = std::string(BuildException::what() + std::string(" Invalid Symbol: ") + symbol);
 }

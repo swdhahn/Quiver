@@ -79,3 +79,12 @@ const Variable* getVariableFromType(const std::string& type) {
     std::cerr << "Something went terribly wrong, variable with type " << type << " does not exist." << std::endl;
     throw std::exception();
 }
+
+const Variable* getVariableFromValue(const std::string& value) {
+    for(int i = 0; i < LANGUAGE_VARIABLE_COUNT; i++) {
+        if(LanguageVariables[i]->canParseData(value)) {
+            return LanguageVariables[i];
+        }
+    }
+    throw InvalidSymbol(value, "...", -1, -1);
+}

@@ -12,6 +12,7 @@
 class BuildException : public std::exception {
 public:
     BuildException(std::string fileName, int line, int lineOffset);
+    BuildException(std::string fileName);
     virtual const char* what() const throw() {
         return m_error.c_str();
     }

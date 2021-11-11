@@ -50,16 +50,19 @@ enum Language {
 
     CLASS_BEGIN, // CLASS_BEGIN class-id inherited-class-id variable-def ... func-def ... CLASS_END
     CLASS_END,
-    METHOD_BEGIN, // method-id type PARAMS_BEGIN ... PARAMS_END
+    METHOD_BEGIN, // method-id type PARAMS_BEGIN ... PARAMS_END ... METHOD_END
     METHOD_END, //
     PARAMS_BEGIN, // PARAMS_INDEX 0 type name PARAMS_INDEX 1 type name ... PARAMS_END
     PARAMS_INDEX,
     PARAMS_END,
     CONDITION_BEGIN, //
     CONDITION_END,
-    METHOD_CALL, // method-id [params: variable-id] ...
+    METHOD_CALL_BEGIN, // METHOD_CALL_BEGIN method-id PARAMS METHOD_CALL_END
+    METHOD_CALL_END,
     VARIABLE_CREATION, // variable-id type value
     VARIABLE_DESTRUCTION, // variable-id
+
+
 
 };
 
@@ -80,6 +83,7 @@ bool containsWhitespace(const std::string& name);
 bool isValidName(const std::string& name);
 
 const Variable* getVariableFromType(const std::string& type);
+const Variable* getVariableFromValue(const std::string& value);
 
 
 

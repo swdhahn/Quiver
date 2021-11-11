@@ -23,7 +23,7 @@ int main(int argc, char* argv[]) {
 
 /**
  *
- * Function calls
+ * Function calls - passing variables
  *
  * class instancing
  *

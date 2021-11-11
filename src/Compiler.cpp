@@ -40,7 +40,7 @@ void Compiler::compile(const char* path) {
 }
 
 void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string& current, char& nSymbol, const std::string& fileName, int& lineNumber, int& lineOffset) {
-    std::cout << current << std::endl;
+    //std::cout << current << std::endl;
     bool isRecognized = false;
 
     std::string mainWord = current;
@@ -86,6 +86,39 @@ void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string&
         if(next == "(") {
             isRecognized = true;
             std::cout << "HEYYY, FUNCTION CALL: " << name << std::endl;
+
+            out_file << (char) METHOD_CALL_BEGIN << (char)SEPARATOR << name << (char) SEPARATOR;
+
+            out_file << (char)PARAMS_BEGIN << (char)SEPARATOR;
+
+            // loop through parameters
+            nextSymbol(in_file, current, nSymbol, lineNumber, lineOffset);
+            while(current != ")") {
+                out_file << (char)PARAMS_INDEX << (char)SEPARATOR;
+
+                std::string type, value;
+
+                while(current != ",") {
+                    if(current == ")") {
+                        break;
+                    }
+
+                    value += current;
+
+                    nextSymbol(in_file, current, nSymbol, lineNumber, lineOffset);
+                }
+
+                for(int i = 0; i < LANGUAGE_VARIABLE_COUNT; i++) {
+                    if(LanguageVariables[i]->canParseData(value)) {
+                        type = i;
+                        break;
+                    }
+                }
+
+                out_file << type << (char)SEPARATOR << value << (char)SEPARATOR;
+            }
+            out_file << (char)PARAMS_END << (char)SEPARATOR;
+
         }
     }
 
@@ -117,9 +150,7 @@ void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string&
                 out_file << (char)METHOD_BEGIN << (char)SEPARATOR << name << (char) SEPARATOR << type << (char) SEPARATOR;
 
                 for(int i = 0; i < modifiers.size(); i++) {
-                    if(modifiers.at(i) == "const") {
-
-                    }
+                    out_file << modifiers.at(i) << (char)SEPARATOR;
                 }
 
                 out_file << (char)PARAMS_BEGIN << (char)SEPARATOR;
@@ -206,7 +237,7 @@ void Compiler::handleSymbol(FILE* in_file, std::ofstream& out_file, std::string&
 
     if(!isRecognized && !containsWhitespace(mainWord)) {
 
-        std::cout << InvalidSymbol(mainWord, fileName, lineNumber, lineOffset).what() << std::endl;
+        //std::cout << InvalidSymbol(mainWord, fileName, lineNumber, lineOffset).what() << std::endl;
     }
 }
 
